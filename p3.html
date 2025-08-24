@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8"/>
+  <title>🎂 Happy birthday </title>
+  <style>
+    body { background: #f8f1ff; font-family: 'Vazirmatn', sans-serif; text-align: center; padding: 40px; }
+    #container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    #title { font-size: 28px; color: #6a1b9a; margin-bottom: 20px; }
+    #chat { height: 250px; overflow: hidden; border: 1px solid #ddd; border-radius: 8px; padding: 10px; background: #fafafa; text-align: right; }
+    .msg { margin: 12px 0; font-size: 18px; }
+    #start { margin-top: 20px; padding: 12px 24px; font-size: 18px; background: #6a1b9a; color: white; border: none; border-radius: 6px; cursor: pointer; }
+    #start:hover { background: #7e57c2; }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="title">🎉 تولدت مبارک  خواهرم 💜</div>
+    <div id="chat"></div>
+    <button id="start">شروع 🎬</button>
+
+  </div>
+  <script>
+    const messages = [
+      "کیان جان، دختر رؤیاهای هوشمند،",
+      "کتاب و آچار و پیچ گوشتی و داستان‌های رباتیک، همراهت باشه همیشه.",
+      "در دل تو آینده پر از نور و موفقیته،",
+      "تو که با پایتون می‌سازی دنیا رو جادویی‌تر...",
+      "تولدت مبارک؛ تو آغاز فصل جدید پیروزی‌ها هستی 💫"
+    ];
+    const chat = document.getElementById('chat');
+    const start = document.getElementById('start');
+
+    function speak(text) {
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'fa-IR';
+      speechSynthesis.speak(utter);
+    }
+
+    function showMessages(i=0) {
+      if (i >= messages.length) {
+        chat.innerHTML += "<div class='msg'>🎁 پایان پیام با عشق ❤️</div>";
+        speak("تولدت مبارک کیان عزیز. با عشق!");
+        return;
+      }
+      const msg = messages[i];
+      const el = document.createElement('div');
+      el.className = 'msg';
+      el.textContent = msg;
+      chat.appendChild(el);
+      chat.scrollTop = chat.scrollHeight;
+      speak(msg);
+      setTimeout(() => showMessages(i+1), 3000);
+    }
+
+    start.addEventListener('click', () => {
+      start.disabled = true;
+      showMessages();
+    });
+  </script>
+</body>
+</html>
